@@ -38,7 +38,7 @@ class Promise < RubyPromises::CleanObject
     self
   end
 
-  def result arg = nil
+  def resolve arg = nil
     _rescue 'can\'t call result twice!' if @started
     @started = true
     _apply arg

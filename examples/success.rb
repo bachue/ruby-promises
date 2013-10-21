@@ -22,10 +22,14 @@ EventMachine.run do
       p http.response_header
       resolve 'http://www.emc.com'
     }
-  }.then {|_, _|
+  }
+
+  promise.resolve 'http://www.google.com'
+  
+  promise.then {|_, _|
     EM.stop
     puts 'Success Here! Shutdown the EventMachine!'
-  }.result 'http://www.google.com'
+  }
 
   puts '## END ##'
 end

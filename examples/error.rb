@@ -28,7 +28,7 @@ EventMachine.run do
   }, proc {|err| puts "Get Error here: #{err}" }).then {|_, _|
     EM.stop
     puts 'Fail!'
-  }.result 'http://www.google.com'
+  }.resolve 'http://www.google.com'
 
   puts '## END ##'
 end
