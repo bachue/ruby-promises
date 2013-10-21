@@ -1,6 +1,5 @@
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
 require 'examples'
-require 'promises'
 
 EventMachine.run do
   promise = Promise.new
@@ -25,7 +24,7 @@ EventMachine.run do
       p http.response_header
       reject 'Success!'
     }
-  }, proc {|err| puts "Get Error here: #{err}" }).then {|_, _|
+  }, proc {|err| puts "Get Error here: #{err}" }).then {
     EM.stop
     puts 'Fail!'
   }.resolve 'http://www.google.com'

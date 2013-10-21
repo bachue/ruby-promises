@@ -1,12 +1,14 @@
-# Ruby::Promise
+# RubyPromises
 
-TODO: Write a gem description
+A lightweight gem implement AngularJS Promises in Ruby
+
+AngularJS Promise introduction: <http://urish.org/angular/AngularPromises.pdf>
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'ruby-promise'
+    gem 'ruby-promises'
 
 And then execute:
 
@@ -14,11 +16,42 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ruby-promise
+    $ gem install ruby-promises
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+EventMachine.run do
+  promise = Promise.new
+  promise.then {|url|
+    http = EventMachine::HttpRequest.new(url).get
+    http.callback { 
+      p http.response_header
+      resolve 'http://www.ruby-china.org' 
+    }
+  }.then {|url| 
+    http = EventMachine::HttpRequest.new(url).get
+    http.callback {
+      p http.response_header
+      resolve 'http://www.vmware.com'
+    }
+  }.then {|url|
+    http = EventMachine::HttpRequest.new(url).get
+    http.callback {
+      p http.response_header
+      resolve 'http://www.emc.com'
+    }
+  }.then {
+    http = EventMachine::HttpRequest.new(url).get
+    http.callback {
+      p http.response_header
+      resolve
+      puts 'Success Here! Shutdown the EventMachine!'
+      EM.stop
+    }
+  }.resolve 'http://www.google.com'
+end
+```
 
 ## Contributing
 
