@@ -45,7 +45,7 @@ class Promise < RubyPromises::CleanObject
   end
 
   def method_missing method, *args
-    result.send method, *args
+    @result.send method, *args
   end
 
   private
